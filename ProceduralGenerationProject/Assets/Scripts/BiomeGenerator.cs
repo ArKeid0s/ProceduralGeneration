@@ -33,6 +33,7 @@ public class BiomeGenerator : MonoBehaviour
         CreateRooms();
         SetRoomDoors();
         DrawMap();
+        GetComponent<SheetAssigner>().Assign(rooms);
     }
 
     /// <summary>

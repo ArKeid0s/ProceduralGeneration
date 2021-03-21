@@ -28,19 +28,27 @@ public class RoomInstance : MonoBehaviour
         doorBot = _doorBot;
         doorLeft = _doorLeft;
         doorRight = _doorRight;
+        print("setup");
         GenerateRoomTiles();
     }
 
+    /*
+     * TODO: THIS IS LOOPING INFINITELY CHECK TEXTURE WIDTH AND HEIGHT
+     */
     private void GenerateRoomTiles()
     {
+        print("Width: " + texture.width + "\n Height: " + texture.height);
+        /*
         for (int x = 0; x < texture.width; x++)
         {
             for (int y = 0; y < texture.height; y++)
             {
-                MakeDoors(x, y);
-                GenerateTile(x, y);
+                print("generate");
+                //MakeDoors(x, y);
+                //GenerateTile(x, y);
             }
         }
+        */
     }
 
     private void GenerateTile(int x, int y)

@@ -16,7 +16,7 @@ public class SheetAssigner : MonoBehaviour {
                 continue;
             }
             //pick a random index for the array
-            int index = Mathf.RoundToInt(Random.value * (sheetsNormal.Length -1));
+            int index = Mathf.RoundToInt(Random.value * (sheetsNormal.Length - 1));
             //find position to place room
             Vector3 pos = new Vector3(room.gridPos.x * (roomDimensions.x + gutterSize.x), room.gridPos.y * (roomDimensions.y + gutterSize.y), 0);
             RoomInstance myRoom = Instantiate(RoomObj, pos, Quaternion.identity).GetComponent<RoomInstance>();

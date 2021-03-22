@@ -5,7 +5,7 @@ using UnityEngine;
 public class BiomeGenerator : MonoBehaviour
 {
     // Define the biome radius on the x and the y (biome will be 2x bigger)
-    public Vector2 biomeSize = new Vector2(8, 8);
+    Vector2 biomeSize = new Vector2(4, 4);
 
     // Store the biome rooms
     Room[,] rooms;
@@ -15,9 +15,10 @@ public class BiomeGenerator : MonoBehaviour
 
     int gridSizeX, gridSizeY;
 
-    public int numberOfRooms = 48;
+    public int numberOfRooms = 10;
 
     public GameObject minimapGo;
+    public Transform mapRoot;
 
     private void Start()
     {
@@ -197,13 +198,12 @@ public class BiomeGenerator : MonoBehaviour
 
             checkingPos = new Vector2(x, y);
         } while (takenPositions.Contains(checkingPos) || x >= gridSizeX || x < -gridSizeX || y >= gridSizeY || y < -gridSizeY);
+
+        if (inc >= 100)
         {
-            if (inc >= 100)
-            {
-                print("error: could not find position with onely one neighbor");
-            }
-            return checkingPos;
+            print("error: could not find position with onely one neighbor");
         }
+        return checkingPos;
     }
 
 
@@ -249,37 +249,36 @@ public class BiomeGenerator : MonoBehaviour
 
             checkingPos = new Vector2(x, y);
         } while (takenPositions.Contains(checkingPos) || x >= gridSizeX || x < -gridSizeX || y >= gridSizeY || y < -gridSizeY);
-        {
-            return checkingPos;
-        }
+
+        return checkingPos;
     }
 
     /// <summary>
     /// Look into the takenPositions if the room at the checkingPos has neighbors
     /// </summary>
     /// <param name="checkingPos"></param>
-    /// <param name="takenPositions"></param>
+    /// <param name="usedPositions"></param>
     /// <returns>int amount</returns>
-    private int NumberOfNeighbors(Vector2 checkingPos, List<Vector2> takenPositions)
+    private int NumberOfNeighbors(Vector2 checkingPos, List<Vector2> usedPositions)
     {
         int amount = 0;
 
-        if (takenPositions.Contains(checkingPos + Vector2.right))
+        if (usedPositions.Contains(checkingPos + Vector2.right))
         {
             amount++;
         }
 
-        if (takenPositions.Contains(checkingPos + Vector2.left))
+        if (usedPositions.Contains(checkingPos + Vector2.left))
         {
             amount++;
         }
 
-        if (takenPositions.Contains(checkingPos + Vector2.up))
+        if (usedPositions.Contains(checkingPos + Vector2.up))
         {
             amount++;
         }
 
-        if (takenPositions.Contains(checkingPos + Vector2.down))
+        if (usedPositions.Contains(checkingPos + Vector2.down))
         {
             amount++;
         }
@@ -301,7 +300,7 @@ public class BiomeGenerator : MonoBehaviour
             MapSpriteSelector mapper = Object.Instantiate(minimapGo, drawPos, Quaternion.identity).GetComponent<MapSpriteSelector>();
             mapper.type = room.type;
             mapper.typeId = room.typeId;
-            print("id:" + room.gridPos + "doors: \n" + "bot " + room.doorBot + "\ntop " + room.doorTop + "\nleft " + room.doorLeft + "\nRight " + room.doorRight);
+            mapper.gameObject.transform.parent = mapRoot;
         }
     }
 

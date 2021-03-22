@@ -7,7 +7,7 @@ public class SheetAssigner : MonoBehaviour {
     Texture2D[] sheetsNormal;
     [SerializeField]
     GameObject RoomObj;
-    public Vector2 roomDimensions = new Vector2(16*45,16*23);
+    public Vector2 roomDimensions = new Vector2(16*17,16*9);
     public Vector2 gutterSize = new Vector2(16*9,16*4);
     public void Assign(Room[,] rooms){
         foreach (Room room in rooms){
